@@ -1,9 +1,12 @@
 import time
 
+path_in = '../data/preferences.in'
+path_out = '../data/matchings.out'
+
 hospitalPreferences = []
 studentPreferences = []
 
-with open('../data/preferences.in', 'r') as file:
+with open(path_in, 'r') as file:
     n = int(file.readline().strip())
     for i in range(n):
         hospitalPreferences.append(list(map(int, file.readline().split())))
@@ -47,6 +50,8 @@ def check_student_swap(s, h):
 
     return studentPreferences[s - 1].index(h) < studentPreferences[s - 1].index(h_prime)
 
+start = time.perf_counter()
+
 while find_unmatched_hospital() != -1:
     hospital = find_unmatched_hospital()
     student = find_next_student(hospital)
@@ -59,7 +64,9 @@ while find_unmatched_hospital() != -1:
 
     previousMatches.append([hospital, student])
 
-with open('../data/matchings.out', 'w') as file:
+end = time.perf_counter()
+
+with open(path_out, 'w') as file:
     for match in matches:
         file.write(f"{match} {matches[match]}\n")
 
@@ -68,3 +75,4 @@ print()
 print("Final Matching:")
 for match in matches:
     print(match, matches[match])
+print(f"Matcher runtime: {(end - start)*1000:.3f} ms")

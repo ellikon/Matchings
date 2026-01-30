@@ -139,7 +139,7 @@ def main():
     import time
     input_path = '../data/preferences.in'
     output_path = '../data/matchings.out'
-
+    start = time.perf_counter()
     try:
         n, hospitalPreferences, studentPreferences = read_in(input_path)
     except ValueError as e:
@@ -164,7 +164,9 @@ def main():
         return
 
     print("VALID STABLE")
+    end = time.perf_counter()
 
+    print(f"Verifier runtime: {(end - start)*1000:.3f} ms")
 
 
 if __name__ == '__main__':
