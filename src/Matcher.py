@@ -1,5 +1,5 @@
-path_in = '../data/preferences.in'
-path_out = '../data/matchings.out'
+path_in = '../data/test_512.in'
+path_out = '../data/matchings_512.out'
 
 import time
 
