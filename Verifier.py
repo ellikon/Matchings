@@ -63,19 +63,69 @@ def read_in(path):
 
     return n, hospitalPreferences, studentPreferences
 
+def read_match(path, n):
+    matches = {}
+
+    with open(path, 'r') as file:
+        lines = [ln.strip() for ln in file.readlines() if ln.strip() != ""]
+
+    if len(lines) != n:
+        raise ValueError(f"INVALID: expected {n} matching lines and got {len(lines)}")
+
+    seenH = set()
+    seenS = set()
+
+    for idx, ln in enumerate(lines, start = 1):
+        parts = ln.split()
+        if len(parts) != 2:
+            raise ValueError(f"INVALID: line {idx} should have 2 integers")
+
+        try:
+            h = int(parts[0])
+            s = int(parts[1])
+        except ValueError:
+            raise ValueError(f"INVALID: line {idx} contains non integer values")
+
+        if not (1 <=h <= n and 1 <= s <= n):
+            raise ValueError(f"INVALID: line {idx} has out-of-range value (h={h}, s={s})")
+
+        if h in seenH:
+            raise ValueError(f"INVALID: duplicate hospital {h}")
+        if s in seenS:
+            raise ValueError(f"INVALID: duplicate student {s}")
+
+
+        seenH.add(h)
+        seenS.add(s)
+        matches[h] = s
+
+    return matches
 
 
 def main():
-    input_path = 'data/example.in'
-    output = 'data/matching.out'
+    input_path = 'preferences.in'
+    output_path = 'matchings.out'
 
     try:
         n, hospitalPreferences, studentPreferences = read_in(input_path)
     except ValueError as e:
         print(str(e))
         return
+    except Exception:
+        print("INVALID: cannot open/read input file")
+        return
 
-    print(n,hospitalPreferences,studentPreferences)
+    try:
+        matches = read_match(output_path, n)
+    except ValueError as e:
+        print(str(e))
+        return
+    except Exception:
+        print("INVALID: cannot open/read matching file")
+        return
+    print(matches)
+
+
 
 
 
