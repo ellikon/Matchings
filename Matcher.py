@@ -32,11 +32,10 @@ def find_next_student(h):
 
 
 def get_h_prime(s):
-    h_prime = -1
     for match in matches:
         if matches[match] == s:
-            h_prime = match
-    return h_prime
+            return match
+    return -1
 
 
 def check_student_swap(s, h):
@@ -44,15 +43,21 @@ def check_student_swap(s, h):
     if h_prime == -1:
         return True
 
-    return studentPreferences[s].index(h) > studentPreferences[h].index(h_prime)
+    return studentPreferences[s - 1].index(h) < studentPreferences[s - 1].index(h_prime)
 
-# while find_unmatched_hospital() != -1:
-#     hospital = find_unmatched_hospital()
-#     hospitalPreference = hospitalPreferences[hospital-1]
-#
-#     student = find_next_student(hospital)
-#     studentPreferences[student] = studentPreferences[student-1]
-#
-#     if student not in matches.values():
-#         matches[hospital] = student
-#     else if
+
+while find_unmatched_hospital() != -1:
+    hospital = find_unmatched_hospital()
+    student = find_next_student(hospital)
+
+    if student not in matches.values():
+        matches[hospital] = student
+    elif check_student_swap(student, hospital):
+        hospital_prime = get_h_prime(student)
+        matches[hospital] = student
+        matches[hospital_prime] = -1
+
+    previousMatches.append([hospital, student])
+
+for match in matches:
+    print(match, matches[match])
