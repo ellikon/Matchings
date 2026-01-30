@@ -1,3 +1,5 @@
+import time
+
 hospitalPreferences = []
 studentPreferences = []
 
@@ -44,7 +46,6 @@ def check_student_swap(s, h):
         return True
 
     return studentPreferences[s - 1].index(h) < studentPreferences[s - 1].index(h_prime)
-
 
 while find_unmatched_hospital() != -1:
     hospital = find_unmatched_hospital()

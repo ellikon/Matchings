@@ -99,12 +99,46 @@ def read_match(path, n):
         seenS.add(s)
         matches[h] = s
 
+    if len(seenH) != n:
+        raise ValueError("INVALID: not all hospitals appear exactly once")
+    if len(seenS) != n:
+        raise ValueError("INVALID: not all students appear exactly once")
+
     return matches
+
+def stability(matches, hospitalPreferences, studentPreferences, n):
+    student_to_hospital = {}
+    for h in matches:
+        student_to_hospital[matches[h]] = h
+    #Student rank of hospitals
+    rankS = [[0] * (n + 1) for _ in range(n + 1)]
+    for s in range(1, n + 1):
+        for pos, h in enumerate(studentPreferences[s - 1]):
+            rankS[s][h] = pos
+    #Hospital rank of student
+    rankH = [[0] * (n + 1) for _ in range(n + 1)]
+    for h in range(1, n + 1):
+        for pos, s in enumerate(hospitalPreferences[h - 1]):
+            rankH[h][s] = pos
+
+    for h in range(1, n + 1):
+        assigned_s = matches[h]
+        # Check students that h prefers more than student matched
+        for s in hospitalPreferences[h - 1]:
+            if s == assigned_s:
+                break  # Reached matched student, everyone after is worse
+            assigned_h_of_s = student_to_hospital[s]
+            if rankS[s][h] < rankS[s][assigned_h_of_s]:
+                return False, f"blocking pair ({h}, {s})"
+
+    return True, ""
+
 
 
 def main():
-    input_path = 'data/preferences.in'
-    output_path = 'data/matchings.out'
+    import time
+    input_path = '../data/preferences.in'
+    output_path = '../data/matchings.out'
 
     try:
         n, hospitalPreferences, studentPreferences = read_in(input_path)
@@ -123,9 +157,13 @@ def main():
     except Exception:
         print("INVALID: cannot open/read matching file")
         return
-    print(matches)
 
+    stable, reason = stability(matches, hospitalPreferences, studentPreferences, n)
+    if not stable:
+        print(f"UNSTABLE: {reason}")
+        return
 
+    print("VALID STABLE")
 
 
 
