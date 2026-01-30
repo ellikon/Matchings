@@ -15,7 +15,17 @@ for i in range(n):
 
 
 def find_unmatched_hospital():
-    for hospital in matches:
-        if matches[hospital] == -1:
-            return hospital
+    for h in matches:
+        if matches[h] == -1:
+            return h
+    return -1
+
+
+previousMatches = []
+
+
+def find_next_student(h):
+    for s in hospitalPreferences[h - 1]:
+        if [h, s] not in previousMatches:
+            return s
     return -1
