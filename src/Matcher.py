@@ -1,7 +1,7 @@
 hospitalPreferences = []
 studentPreferences = []
 
-with open('preferences.in', 'r') as file:
+with open('../data/preferences.in', 'r') as file:
     n = int(file.readline().strip())
     for i in range(n):
         hospitalPreferences.append(list(map(int, file.readline().split())))
@@ -58,7 +58,7 @@ while find_unmatched_hospital() != -1:
 
     previousMatches.append([hospital, student])
 
-with open('matchings.out', 'w') as file:
+with open('../data/matchings.out', 'w') as file:
     for match in matches:
         file.write(f"{match} {matches[match]}\n")
 
