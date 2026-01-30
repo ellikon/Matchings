@@ -59,7 +59,7 @@ while find_unmatched_hospital() != -1:
 
     previousMatches.append([hospital, student])
 
-with open('matching.out', 'w') as file:
+with open('data/matching.out', 'w') as file:
     for match in matches:
         file.write(f"{match} {matches[match]}\n")
 
