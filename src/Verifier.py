@@ -1,5 +1,5 @@
-input_path = '../data/preferences.in'
-output_path = '../data/matchings.out'
+path_in = '../data/test_512.in'
+path_out = '../data/matchings_512.out'
 
 
 def read_in(path):
@@ -144,7 +144,7 @@ def main():
 
     start = time.perf_counter()
     try:
-        n, hospitalPreferences, studentPreferences = read_in(input_path)
+        n, hospitalPreferences, studentPreferences = read_in(path_in)
     except ValueError as e:
         print(str(e))
         return
@@ -153,7 +153,7 @@ def main():
         return
 
     try:
-        matches = read_match(output_path, n)
+        matches = read_match(path_out, n)
     except ValueError as e:
         print(str(e))
         return
