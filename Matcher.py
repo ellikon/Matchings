@@ -59,5 +59,12 @@ while find_unmatched_hospital() != -1:
 
     previousMatches.append([hospital, student])
 
+with open('matching.out', 'w') as file:
+    for match in matches:
+        file.write(f"{match} {matches[match]}\n")
+
+print("Number of Proposals Made: ", len(previousMatches))
+print()
+print("Final Matching:")
 for match in matches:
     print(match, matches[match])
