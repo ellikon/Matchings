@@ -1,7 +1,7 @@
-import time
-
 path_in = '../data/preferences.in'
 path_out = '../data/matchings.out'
+
+import time
 
 hospitalPreferences = []
 studentPreferences = []

@@ -1,3 +1,7 @@
+input_path = '../data/preferences.in'
+output_path = '../data/matchings.out'
+
+
 def read_in(path):
     hospitalPreferences = []
     studentPreferences = []
@@ -137,8 +141,7 @@ def stability(matches, hospitalPreferences, studentPreferences, n):
 
 def main():
     import time
-    input_path = '../data/preferences.in'
-    output_path = '../data/matchings.out'
+
     start = time.perf_counter()
     try:
         n, hospitalPreferences, studentPreferences = read_in(input_path)
