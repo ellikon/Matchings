@@ -32,9 +32,9 @@ def find_next_student(h):
 
 
 def get_h_prime(s):
-    for match in matches:
-        if matches[match] == s:
-            return match
+    for m in matches:
+        if matches[m] == s:
+            return m
     return -1
 
 
