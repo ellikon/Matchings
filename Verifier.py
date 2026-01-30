@@ -103,8 +103,8 @@ def read_match(path, n):
 
 
 def main():
-    input_path = 'preferences.in'
-    output_path = 'matchings.out'
+    input_path = 'data/preferences.in'
+    output_path = 'data/matchings.out'
 
     try:
         n, hospitalPreferences, studentPreferences = read_in(input_path)

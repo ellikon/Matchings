@@ -49,7 +49,6 @@ def check_student_swap(s, h):
 while find_unmatched_hospital() != -1:
     hospital = find_unmatched_hospital()
     student = find_next_student(hospital)
-
     if student not in matches.values():
         matches[hospital] = student
     elif check_student_swap(student, hospital):
